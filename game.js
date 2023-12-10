@@ -1,136 +1,128 @@
-// Iteration 2: Generating two random numbers (0 to 100) and displaying the same in the game.html
-var number1 = Math.round(Math.random() * 100);
-const number1b = document.getElementById("number1");
+var num1 = Math.round(Math.random() * 100);
+const num1Element = document.getElementById("number1");
 
-var number2 = Math.round(Math.random() * 100);
-const number2b = document.getElementById("number2");
+var num2 = Math.round(Math.random() * 100);
+const num2Element = document.getElementById("number2");
 
-// Iteration 3: Creating variables required to make the game functional
-var operator;
-var score = 0;
-const plus = document.getElementById("plus");
-const minus = document.getElementById("minus");
-const multiply = document.getElementById("mul");
-const divide = document.getElementById("divide");
-const modulus = document.getElementById("modulus");
+var operation;
+var userScore = 0;
+const addBtn = document.getElementById("plus");
+const subtractBtn = document.getElementById("minus");
+const multiplyBtn = document.getElementById("mul");
+const divideBtn = document.getElementById("divide");
+const modulusBtn = document.getElementById("modulus");
 
-// Iteration 4: Creating a variable for number 3 and a variable for storing the html element with the Id "number3"
-var number3b = document.getElementById("number3");
-var number3;
+var num3Element = document.getElementById("number3");
+var num3;
 
-// Iteration 5: Creating a randomise function to make the game functional
-function randomise() {
-    number1 = Math.round(Math.random() * 100);
-    number2 = Math.round(Math.random() * 100);
-    if (number1 < number2) {
-        var extra = number1;
-        number1 = number2;
-        number2 = extra;
+function randomize() {
+    num1 = Math.round(Math.random() * 100);
+    num2 = Math.round(Math.random() * 100);
+    if (num1 < num2) {
+        var temp = num1;
+        num1 = num2;
+        num2 = temp;
       }
     
-      operator = Math.round(Math.random() * 5);
-      switch (operator) {
+      operation = Math.round(Math.random() * 5);
+      switch (operation) {
         case 1:
-          number3 = number1 + number2;
+          num3 = num1 + num2;
           break;
     
         case 2:
-          number3 = number1 - number2;
+          num3 = num1 - num2;
           break;
     
         case 3:
-          number3 = number1 * number2;
+          num3 = num1 * num2;
           break;
     
         case 4:
-          number3 = Math.floor(number1 / number2);
+          num3 = Math.floor(num1 / num2);
           break;
     
         case 5:
-          number3 = number1 % number2;
+          num3 = num1 % num2;
           break;
     
         case 0:
-          randomise();
+          randomize();
       }
     
-      number1b.innerHTML = number1;
-      number2b.innerHTML = number2;
-      number3b.innerHTML = number3;
+      num1Element.innerHTML = num1;
+      num2Element.innerHTML = num2;
+      num3Element.innerHTML = num3;
     
-      console.log(number1 + " " + number2 + " " + number3 + " " + operator);
+      console.log(num1 + " " + num2 + " " + num3 + " " + operation);
     }
     
-    randomise();
-    
+    randomize();
 
-// Iteration 6: Making the Operators (button) functional
-plus.onclick = () => {
-    if (number1 + number2 === number3) {
-      score++;
-      randomise();
-      resetTime(timerId);
+addBtn.onclick = () => {
+    if (num1 + num2 === num3) {
+      userScore++;
+      randomize();
+      resetTimer(timerId);
     } else {
-      location.href = "gameover.html?score=" + score;
+      location.href = "gameover.html?score=" + userScore;
     }
   };
 
-  minus.onclick = () => {
-    if (number1 - number2 === number3) {
-      score++;
-      randomise();
-      resetTime(timerId);
+subtractBtn.onclick = () => {
+    if (num1 - num2 === num3) {
+      userScore++;
+      randomize();
+      resetTimer(timerId);
     } else {
-      location.href = "gameover.html?score=" + score;
+      location.href = "gameover.html?score=" + userScore;
     }
 };
 
-    multiply.onclick = () => {
-        if (number1 * number2 === number3) {
-          score++;
-          randomise();
-          resetTime(timerId);
+multiplyBtn.onclick = () => {
+        if (num1 * num2 === num3) {
+          userScore++;
+          randomize();
+          resetTimer(timerId);
         } else {
-          location.href = "gameover.html?score=" + score;
+          location.href = "gameover.html?score=" + userScore;
         }
       };
-    divide.onclick = () => {
-        if (Math.floor(number1 / number2) === number3) {
-          score++;
-          randomise();
-          resetTime(timerId);
+divideBtn.onclick = () => {
+        if (Math.floor(num1 / num2) === num3) {
+          userScore++;
+          randomize();
+          resetTimer(timerId);
         } else {
-          location.href = "gameover.html?score=" + score;
+          location.href = "gameover.html?score=" + userScore;
         }
       };
-      modulus.onclick = () => {
-        if (number1 % number2 === number3) {
-          score++;
-          randomise();
-          resetTime(timerId);
+modulusBtn.onclick = () => {
+        if (num1 % num2 === num3) {
+          userScore++;
+          randomize();
+          resetTimer(timerId);
         } else {
-          location.href = "gameover.html?score=" + score;
+          location.href = "gameover.html?score=" + userScore;
         }
       };
 
-// Iteration 7: Making Timer functional
-var time = 20;
+var seconds = 20;
 var timerId;
 
 function startTimer() {
-  time = 20;
-  timer.innerHTML = time;
+  seconds = 20;
+  timer.innerHTML = seconds;
   timerId = setInterval(() => {
-    time--;
-    if (time == 0) location.href = "./gameover.html?score=" + score;
-    timer.innerHTML = time;
+    seconds--;
+    if (seconds == 0) location.href = "./gameover.html?score=" + userScore;
+    timer.innerHTML = seconds;
   }, 1000);
 }
 
-function resetTime(intervalId) {
+function resetTimer(intervalId) {
   clearInterval(intervalId);
   startTimer();
 }
 
 startTimer();
-
